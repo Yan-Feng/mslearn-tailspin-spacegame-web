@@ -1,6 +1,11 @@
 trigger:
+<<<<<<< HEAD
   - '*'
   
+=======
+- '*'
+
+>>>>>>> unit-tests
 pool:
   vmImage: 'ubuntu-16.04'
   demands:
@@ -12,7 +17,11 @@ variables:
   dotnetSdkVersion: '3.1.100'
 
 steps:
+<<<<<<< HEAD
 - task: UseDotNet@2
+=======
+- task: DotNetCoreInstaller@0
+>>>>>>> unit-tests
   displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
@@ -46,6 +55,7 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
+<<<<<<< HEAD
   displayName: 'Install ReportGenerator'
   inputs:
     command: custom
@@ -69,6 +79,14 @@ steps:
   inputs:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+=======
+  displayName: 'Run Unit Tests - $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --no-build'
+    publishTestResults: true
+    projects: '**/*.Tests.csproj' 
+>>>>>>> unit-tests
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
@@ -81,4 +99,8 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
+<<<<<<< HEAD
   condition: succeeded()
+=======
+  condition: succeeded()
+>>>>>>> unit-tests
